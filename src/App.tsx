@@ -11,12 +11,13 @@ const App: FC = () => {
         setPage(page);
     }
 
+    const pageSizeOptions = [ '5', '10' ];
+
     return (
         <div>
             { page }
-            <Pagination total={ 7 } showSizeChanger={ true } pageSizeOptions={ [ '5', '10' ] }
-                        onChange={ onPageChange }/>
             <Empty description={ false }/>
+            <Pagination total={ 7 } pageSizeOptions={ pageSizeOptions } onChange={ onPageChange } showSizeChanger/>
         </div>
     );
 }
