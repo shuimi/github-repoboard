@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Layout, Menu, message } from 'antd';
-import AuthModal from "../components/auth-modal";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootReducerModel } from "../redux";
@@ -44,23 +43,25 @@ const CommonLayout: FC = ({ children }) => {
 
     return (
         <>
-            <Layout>
+            <Layout style={ {
+                margin: '0',
+                padding: '0',
+            } }>
                 <Header>
                     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={ [ '2' ] }>
                         <Menu.Item key="1">
                             <Link to="/me">
-                                My repositories
+                                My repos
                             </Link>
                         </Menu.Item>
                         <Menu.Item key="2">
                             <Link to="/repoboard">
-                                Browse repositories
+                                Browse repos
                             </Link>
                         </Menu.Item>
                     </Menu>
                 </Header>
                 <Content>
-                    <AuthModal show={true}></AuthModal>
                     { children }
                 </Content>
                 <Footer style={ { textAlign: 'center' } }>

@@ -9,12 +9,14 @@ import {
 
 import ReposBrowser from './components/repos-browser';
 import MyProfile from './components/my-profile';
+import AuthModal from "./components/auth-modal";
 
 
 const App: FC = () => {
 
     return (
         <Router>
+            <AuthModal show={true}/>
             <CommonLayout>
                 <Routes>
                     <Route path='/repoboard' element={ <ReposBrowser/> }/>
