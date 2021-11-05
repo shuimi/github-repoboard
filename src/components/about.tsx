@@ -7,6 +7,7 @@ const About = () => {
             About this application: <br/>
 
             Purpose: <br/>
+            RepoBoard is a demo React application made as a test task for the WinSolutions company. <br/>
 
             Technologies: <br/>
 

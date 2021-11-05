@@ -3,7 +3,7 @@ import { Button, Divider, Empty, Input, Pagination, Row } from "antd";
 import { octokit } from "../services/octokit";
 import RepositoryCard from "./repository-card";
 import useAuth from "../services/auth-service";
-import AuthForm from "./auth-form";
+import CallToAuth from "./call-to-auth";
 
 
 const MyRepositories = () => {
@@ -44,8 +44,8 @@ const MyRepositories = () => {
                         || <Empty description={ false }/>
                     )
                     ||(
-                        <AuthForm continueAsGuestCallback={()=>{}}
-                         signInCallback={signInWithGithub}/>
+                        <CallToAuth continueAsGuestCallback={()=>{}}
+                                    signInCallback={signInWithGithub}/>
                     )
                 }
             </Row>

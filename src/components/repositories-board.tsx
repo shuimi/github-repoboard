@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Col, Divider, Empty, Input, Pagination, Row, Spin } from "antd";
+import { Alert, Divider, Empty, Input, Pagination, Row, Select, Spin } from "antd";
 import RepositoryCard from "./repository-card";
 import { octokit } from "../services/octokit";
 
@@ -39,6 +39,8 @@ const RepositoriesBoard = () => {
     const [ fetching, setFetching ] = useState(false);
     const [ fetchingError, setFetchingError ] = useState('');
 
+    const { Option } = Select;
+
     useEffect(() => {
         setFetchingError('');
         searchQuery && setFetching(true);
@@ -68,7 +70,21 @@ const RepositoriesBoard = () => {
         } }>
             <Input.Search onSearch={ onSearchInput } size="large"
                           placeholder="Search for repos"/>
-            TODO: Add content filters
+            Sort by:
+            <Select defaultValue="asc" style={{ width: '10em' }} bordered={false}>
+                <Option value="asc">Ascending</Option>
+                <Option value="desc">Descending</Option>
+            </Select>
+
+            Search priority:
+            <Select defaultValue="" style={{ width: '14em' }} bordered={false}>
+                <Option value="">Best match</Option>
+                <Option value="stars">Stars</Option>
+                <Option value="forks">Forks</Option>
+                <Option value="help-wanted-issues">Help wanted issues</Option>
+                <Option value="updated">Update rate</Option>
+            </Select>
+
             {
                 !fetchingError && <Divider orientation="left">{ repos && 'Found: ' + repos.totalCount || 'Repositories' }</Divider>
             }

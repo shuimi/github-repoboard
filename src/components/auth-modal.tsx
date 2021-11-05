@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Button } from 'antd';
 import useAuth from "../services/auth-service";
 import GithubLogo from './../images/github-logo.svg';
-import AuthForm from "./auth-form";
+import CallToAuth from "./call-to-auth";
 
 
 const AuthModal = (props: { show: boolean }) => {
@@ -29,8 +29,8 @@ const AuthModal = (props: { show: boolean }) => {
             footer={ null }
             centered
         >
-            <AuthForm continueAsGuestCallback={()=>{}}
-                      signInCallback={signInWithGithub}/>
+            <CallToAuth continueAsGuestCallback={()=>{}}
+                        signInCallback={signInWithGithub}/>
         </Modal>
     );
 }
