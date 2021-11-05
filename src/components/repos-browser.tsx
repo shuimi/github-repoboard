@@ -1,55 +1,94 @@
 import React, { useEffect, useState } from "react";
-import { Col, Divider, Empty, Pagination, Row } from "antd";
+import { Col, Divider, Empty, Input, Pagination, Row, Spin } from "antd";
 import RepositoryCard from "./repository-card";
-import { Octokit } from "octokit";
+import { octokit } from "../services/octokit";
 
 
 const ReposBrowser = () => {
 
-    const [ page, setPage ] = useState<number>(1);
+    const defaultPageSize = 10;
+    const pageSizeOptions = [ '5', `${ defaultPageSize }` ];
+
+    const [ pagination, setPagination ] = useState<{
+        page: number,
+        pageSize: number
+    }>({
+        page: 1,
+        pageSize: defaultPageSize
+    });
 
     const onPageChange = (page: number, pageSize?: number) => {
-        setPage(page);
+        setPagination({ page: page, pageSize: pageSize ?? defaultPageSize });
     }
 
-    const pageSizeOptions = [ '5', '10' ];
 
-    const [ repos, setRepos ] = useState<Array<any>>([]);
+    const [ repos, setRepos ] = useState<{
+        totalCount: number, items?: Array<any> | null
+    }>({
+        totalCount: 0,
+        items: null
+    });
 
-    const octokit = new Octokit();
+    const [ searchQuery, setSearchQuery ] = useState<string>('');
+
+    const onSearchInput = (value: string) => {
+        setSearchQuery(value);
+    }
+
+    const [ fetching, setFetching ] = useState(false);
+    const [ fetchingError, setFetchingError ] = useState('');
 
     useEffect(() => {
-
-        octokit.rest.repos.listForUser({
-            username: 'shuimi'
+        searchQuery && setFetching(true) || setRepos({ totalCount: 0, items: null });
+        searchQuery && octokit.rest.search.repos({
+            q: searchQuery.split(' ').reduce((aggregation, topic) => aggregation += `topic:${ topic }+`),
+            order: 'asc',
+            per_page: pagination.pageSize,
+            page: pagination.page
         })
             .then(repos => {
-                setRepos(repos.data);
+                console.log(repos);
+                setRepos({ totalCount: repos.data.total_count, items: repos.data.items && repos.data.items || null });
             })
             .catch(error => {
                 console.log(error);
             })
-
-    }, []);
+            .finally(() => {
+                setFetching(false);
+            });
+    }, [ searchQuery, pagination ]);
 
     return (
-        <>
-            <div style={ {
-                minHeight: '280px',
-                padding: '24px',
-                background: '#fff'
-            } } className="site-layout-content">
-                <Divider orientation="left">Responsive</Divider>
-                <Row gutter={ { xs: 1, sm: 2, md: 4, lg: 6 } }>
-                    {
-                        repos && repos.map(repo => <RepositoryCard name={ repo.name } loading={ false }/>)
-                    }
-                </Row>
-                <Empty description={ false }/>
-                <Pagination total={ 7 } pageSizeOptions={ pageSizeOptions } onChange={ onPageChange }
+        <section style={ {
+            height: '100%',
+            padding: '2em',
+            margin: '0',
+        } }>
+            <Input.Search onSearch={ onSearchInput } size="large"
+                          placeholder="Search for repos"/>
+            <Divider orientation="left">{ repos && 'Found: ' + repos.totalCount || 'Repositories' }</Divider>
+            <Row style={ {
+                justifyContent: 'center',
+            } } gutter={ { xs: 1, sm: 2, md: 3, lg: 3 } }>
+                { fetching && <Spin/> }
+                {
+                    repos.items
+                    && repos.items.map(repo => <RepositoryCard key={ repo.id } name={ repo.name } loading={ false }/>)
+                    ||
+                    !fetching
+                    && <Empty description={ false }/>
+                }
+            </Row>
+            Only first 1000 results available ({ 1000 / pagination.pageSize } pages)
+            {
+                repos.items && repos.items.length > 1 &&
+                <Pagination total={ repos.totalCount >= 1000 ? 1000 : repos.totalCount }
+                            pageSizeOptions={ pageSizeOptions }
+                            onChange={ onPageChange }
                             showSizeChanger/>
-            </div>
-        </>
+            }
+
+        </section>
     );
 }
 
