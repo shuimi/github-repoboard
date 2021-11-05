@@ -1,5 +1,5 @@
 import { AuthModel } from "../../models";
-import { repoBrowserActionTypes } from "./repo-browser-action-types";
+import { repoboardActionTypes } from "./repoboard-action-types";
 
 
 const defaultState: AuthModel = {
@@ -12,11 +12,11 @@ export interface Action {
     payload: any
 }
 
-export function repoBrowserReducer (state: AuthModel = defaultState, action: Action) {
+export function repoboardReducer (state: AuthModel = defaultState, action: Action) {
     switch (action.type) {
-        case repoBrowserActionTypes.SET_AUTH:
+        case repoboardActionTypes.SET_AUTH:
             return action.payload;
-        case repoBrowserActionTypes.SET_REPOSITORIES:
+        case repoboardActionTypes.SET_REPOSITORIES:
             return {
                 ...state,
                 repositories: action.payload

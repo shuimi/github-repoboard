@@ -1,15 +1,23 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Col, Divider, Empty, Layout, Menu, Pagination, Row, message } from 'antd';
-import RepositoryCard from "../components/repository-card";
+import { Layout, Menu, message } from 'antd';
+import AuthModal from "../components/auth-modal";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootReducerModel } from "../redux";
+import { AuthModel } from "../redux/models";
+import useAuth from "../services/auth-service";
 
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Footer, Content } = Layout;
 
 const footerContent = '© Shustov Vladimir, 2021';
 
 const style = { background: '#0092ff', padding: '8px 0' };
 
 const CommonLayout: FC = ({ children }) => {
+
+    const auth = useSelector<RootReducerModel>(state => state.auth) as AuthModel;
+    const { signOut } = useAuth();
 
     const [ page, setPage ] = useState<number>(1);
 
@@ -37,51 +45,27 @@ const CommonLayout: FC = ({ children }) => {
     return (
         <>
             <Layout>
-
-                <Layout>
-                    <Header>
-                        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={ [ '2' ] }>
-                            <Menu.Item key="1">My repositories</Menu.Item>
-                            <Menu.Item key="2">Browse repositories</Menu.Item>
-                        </Menu>
-                    </Header>
-                    <Content>
-                        { children }
-                        <div style={ {
-                            minHeight: '280px',
-                            padding: '24px',
-                            background: '#fff'
-                        } } className="site-layout-content">
-                            <Divider orientation="left">Responsive</Divider>
-                            <Row gutter={ { xs: 1, sm: 2, md: 4, lg: 6 } }>
-                                <Col className="gutter-row" span={ 1 }>
-                                    <RepositoryCard loading/>
-                                </Col>
-                                <Col className="gutter-row" span={ 1 }>
-                                    <RepositoryCard loading/>
-                                </Col>
-                                <Col className="gutter-row" span={ 1 }>
-                                    <RepositoryCard loading/>
-                                </Col>
-                                <Col className="gutter-row" span={ 1 }>
-                                    <RepositoryCard loading/>
-                                </Col>
-                                <Col className="gutter-row" span={ 1 }>
-                                    <RepositoryCard loading/>
-                                </Col>
-                                <Col className="gutter-row" span={ 1 }>
-                                    <RepositoryCard loading/>
-                                </Col>
-                            </Row>
-                            <Empty description={ false }/>
-                            <Pagination total={ 7 } pageSizeOptions={ pageSizeOptions } onChange={ onPageChange }
-                                        showSizeChanger/>
-                        </div>
-                    </Content>
-                    <Footer style={ { textAlign: 'center' } }>
-                        { footerContent }
-                    </Footer>
-                </Layout>
+                <Header>
+                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={ [ '2' ] }>
+                        <Menu.Item key="1">
+                            <Link to="/me">
+                                My repositories
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key="2">
+                            <Link to="/repoboard">
+                                Browse repositories
+                            </Link>
+                        </Menu.Item>
+                    </Menu>
+                </Header>
+                <Content>
+                    <AuthModal show={true}></AuthModal>
+                    { children }
+                </Content>
+                <Footer style={ { textAlign: 'center' } }>
+                    { footerContent }
+                </Footer>
             </Layout>
         </>
     );

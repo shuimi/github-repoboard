@@ -1,4 +1,4 @@
-import { supabase } from "../http/client";
+import { supabase } from "./client";
 import { useDispatch, useSelector } from "react-redux";
 import { RootReducerModel, setAuth } from "../redux";
 

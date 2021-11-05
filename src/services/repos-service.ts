@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootReducerModel, setAuth } from "../redux";
-import { supabase } from "../http/client";
+import { supabase } from "./client";
 
 
 const useRepos = () => {
