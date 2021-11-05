@@ -3,7 +3,7 @@ import { Skeleton, Switch, Card, Avatar } from 'antd';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 
 
-const RepositoryCard = (props: { loading: boolean }) => {
+const RepositoryCard = (props: { name: string, loading: boolean }) => {
     return (
         <Card
             style={ { width: 300, marginTop: 16 } }
@@ -16,7 +16,7 @@ const RepositoryCard = (props: { loading: boolean }) => {
             <Skeleton loading={ props.loading } avatar active>
                 <Meta
                     avatar={ <Avatar src="https://joeschmoe.io/api/v1/random"/> }
-                    title="Card title"
+                    title={ props.name }
                     description="This is the description"
                 />
             </Skeleton>

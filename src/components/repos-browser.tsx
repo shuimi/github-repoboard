@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Divider, Empty, Pagination, Row } from "antd";
 import RepositoryCard from "./repository-card";
 import { Octokit } from "octokit";
@@ -18,6 +18,20 @@ const ReposBrowser = () => {
 
     const octokit = new Octokit();
 
+    useEffect(() => {
+
+        octokit.rest.repos.listForUser({
+            username: 'shuimi'
+        })
+            .then(repos => {
+                setRepos(repos.data);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
+    }, []);
+
     return (
         <>
             <div style={ {
@@ -27,24 +41,9 @@ const ReposBrowser = () => {
             } } className="site-layout-content">
                 <Divider orientation="left">Responsive</Divider>
                 <Row gutter={ { xs: 1, sm: 2, md: 4, lg: 6 } }>
-                    <Col className="gutter-row" span={ 1 }>
-                        <RepositoryCard loading/>
-                    </Col>
-                    {/*<Col className="gutter-row" span={ 1 }>*/}
-                    {/*    <RepositoryCard loading/>*/}
-                    {/*</Col>*/}
-                    {/*<Col className="gutter-row" span={ 1 }>*/}
-                    {/*    <RepositoryCard loading/>*/}
-                    {/*</Col>*/}
-                    {/*<Col className="gutter-row" span={ 1 }>*/}
-                    {/*    <RepositoryCard loading/>*/}
-                    {/*</Col>*/}
-                    {/*<Col className="gutter-row" span={ 1 }>*/}
-                    {/*    <RepositoryCard loading/>*/}
-                    {/*</Col>*/}
-                    {/*<Col className="gutter-row" span={ 1 }>*/}
-                    {/*    <RepositoryCard loading/>*/}
-                    {/*</Col>*/}
+                    {
+                        repos && repos.map(repo => <RepositoryCard name={ repo.name } loading={ false }/>)
+                    }
                 </Row>
                 <Empty description={ false }/>
                 <Pagination total={ 7 } pageSizeOptions={ pageSizeOptions } onChange={ onPageChange }
