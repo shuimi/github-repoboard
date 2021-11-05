@@ -4,7 +4,7 @@ import RepositoryCard from "./repository-card";
 import { octokit } from "../services/octokit";
 
 
-const ReposBrowser = () => {
+const RepositoriesBoard = () => {
 
     const defaultPageSize = 10;
     const pageSizeOptions = [ '5', `${ defaultPageSize }` ];
@@ -68,6 +68,7 @@ const ReposBrowser = () => {
         } }>
             <Input.Search onSearch={ onSearchInput } size="large"
                           placeholder="Search for repos"/>
+            TODO: Add content filters
             {
                 !fetchingError && <Divider orientation="left">{ repos && 'Found: ' + repos.totalCount || 'Repositories' }</Divider>
             }
@@ -99,16 +100,15 @@ const ReposBrowser = () => {
                 repos.items.length > 1
                 &&
                 <>
-                    Only first 1000 results available ({ 1000 / pagination.pageSize } pages)
+                    Only first 1000 results available ({ 1000 / pagination.pageSize } pages) according github API docs.
                     <Pagination total={ repos.totalCount >= 1000 ? 1000 : repos.totalCount }
                                 pageSizeOptions={ pageSizeOptions }
                                 onChange={ onPageChange }
                                 showSizeChanger/>
                 </>
             }
-
         </section>
     );
 }
 
-export default ReposBrowser;
+export default RepositoriesBoard;

@@ -1,12 +1,13 @@
 import { supabase } from "./client";
 import { useDispatch, useSelector } from "react-redux";
 import { RootReducerModel, setAuth } from "../redux";
+import { AuthModel } from "../redux/models";
 
 
 const useAuth = () => {
 
     const dispatch = useDispatch();
-    const auth = useSelector<RootReducerModel>(state => state.auth);
+    const auth = useSelector<RootReducerModel>(state => state.auth) as AuthModel;
 
     async function checkUser () {
         const user = await supabase.auth.user();
@@ -45,7 +46,8 @@ const useAuth = () => {
     return {
         checkUser,
         signInWithGithub,
-        signOut
+        signOut,
+        auth
     }
 
 }
