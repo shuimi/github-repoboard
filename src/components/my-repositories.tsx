@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Button, Divider, Empty, Input, Pagination, Row } from "antd";
+import { Empty, Row } from "antd";
 import { octokit } from "../services/octokit";
 import RepositoryCard from "./repository-card";
-import useAuth from "../services/auth-service";
+import useAuth from "../services/auth-hook";
 import CallToAuth from "./call-to-auth";
+import Section from "./section";
 
 
 const MyRepositories = () => {
@@ -28,29 +29,25 @@ const MyRepositories = () => {
 
 
     return (
-        <section style={ {
-            height: '100%',
-            padding: '2em',
-            margin: '0',
-        } }>
+        <Section>
             <Row style={ {
                 justifyContent: 'center',
             } } gutter={ { xs: 1, sm: 2, md: 3, lg: 3 } }>
-                {
-                    auth.status
-                    &&(
-                        repos
-                        && repos.map(repo => <RepositoryCard key={ repo.id } name={ repo.name } loading={ false }/>)
-                        || <Empty description={ false }/>
-                    )
-                    ||(
-                        <CallToAuth continueAsGuestCallback={()=>{}}
-                                    signInCallback={signInWithGithub}/>
-                    )
-                }
+                {/*{*/}
+                {/*    auth.status*/}
+                {/*    &&(*/}
+                {/*        repos*/}
+                {/*        && repos.map(repo => <RepositoryCard key={ repo.id } name={ repo.name } loading={ false }/>)*/}
+                {/*        || <Empty description={ false }/>*/}
+                {/*    )*/}
+                {/*    ||(*/}
+                {/*        <CallToAuth continueAsGuestCallback={()=>{}}*/}
+                {/*                    signInCallback={signInWithGithub}/>*/}
+                {/*    )*/}
+                {/*}*/}
             </Row>
 
-        </section>
+        </Section>
     );
 }
 

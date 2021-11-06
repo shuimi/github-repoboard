@@ -1,81 +1,74 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Layout, Menu, message } from 'antd';
+import { Button, Layout, Menu, message } from 'antd';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootReducerModel } from '../redux';
 import { AuthModel } from '../redux/models';
-import useAuth from '../services/auth-service';
+import useAuth from '../services/auth-hook';
 import GithubLogo from '../images/github-logo-white.svg';
 import { Paths } from '../paths';
+import { AuthButton } from "../components/call-to-auth";
 
 
 const { Header, Footer, Content } = Layout;
+const ResetStyle = { margin: '0', padding: '0', };
 
 const footerContent = '© Shustov Vladimir, 2021';
 
-const style = { background: '#0092ff', padding: '8px 0' };
 
 const CommonLayout: FC = ({ children }) => {
 
     const auth = useSelector<RootReducerModel>(state => state.auth) as AuthModel;
     const { signOut } = useAuth();
 
-    const [ page, setPage ] = useState<number>(1);
 
-    const onPageChange = (page: number, pageSize?: number) => {
-        setPage(page);
+    // const key = 'updatable';
+    //
+    // const openMessage = () => {
+    //     message.loading({ content: 'Loading...', key });
+    //     setTimeout(() => {
+    //         message.success({ content: 'Loaded!', key, duration: 2 });
+    //     }, 1000);
+    // };
+    //
+    // useEffect(() => {
+    //     openMessage();
+    // }, []);
+
+
+    const currentLocation = () => {
+        let url = window.location.href.split('/');
+        return url[url.length - 1];
     }
-
-    const pageSizeOptions = [ '5', '10' ];
-
-
-    const key = 'updatable';
-
-    const openMessage = () => {
-        message.loading({ content: 'Loading...', key });
-        setTimeout(() => {
-            message.success({ content: 'Loaded!', key, duration: 2 });
-        }, 1000);
-    };
-
-    useEffect(() => {
-        openMessage();
-    }, []);
-
 
     return (
         <>
-            <Layout style={ {
-                margin: '0',
-                padding: '0',
-            } }>
-                <Header>
-                    <Menu theme='dark' mode='horizontal' defaultSelectedKeys={ [ '1' ] }>
-                        <Menu.Item style={ { backgroundColor: '#4320a2' } } key='0'>
+            <Layout style={ ResetStyle }>
+                <header style={ { zIndex: 1000 } }>
+                    <Menu theme='dark' mode='horizontal' defaultSelectedKeys={ [ currentLocation() ] }>
+                        <Menu.Item style={ { backgroundColor: '#3861c6' } } key={ Paths.ABOUT }>
                             <Link to={ Paths.ABOUT }>
                                 <img src={ GithubLogo } alt='Github Logo'
                                      style={ {
                                          float: 'left',
-                                         height: '3.5rem',
-                                         marginLeft: '0vw',
-                                         marginRight: '0vw',
-                                         marginTop: '0.2em'
+                                         height: '3em',
+                                         marginTop: '0.1em'
                                      } }
                                 />
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key='1'>
+                        <Menu.Item key={ Paths.MY_REPOSITORIES }>
                             <Link to={ Paths.MY_REPOSITORIES }>
                                 My repos
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key='2'>
+                        <Menu.Item key={ Paths.REPOSITORIES_BOARD }>
                             <Link to={ Paths.REPOSITORIES_BOARD }>
                                 Browse repos
                             </Link>
                         </Menu.Item>
                     </Menu>
-                </Header>
+                </header>
                 <Content>
                     { children }
                 </Content>

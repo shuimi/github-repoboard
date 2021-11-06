@@ -30,7 +30,7 @@ const CompositeLogo = styled.div({
     paddingTop: '2rem',
 });
 
-const AuthButton = styled(Button)({
+export const AuthButton = styled(Button)({
     marginTop: '1em',
     marginBottom: '1em',
     width: '14rem',
@@ -58,7 +58,7 @@ const CallToAuth = memo((props: { signInCallback: any, continueAsGuestCallback: 
             <CentredText fontSize={ 1 }>
                 Or try browsing public repositories without authorization:
             </CentredText>
-            <AuthButton type='default' onClick={ props.continueAsGuestCallback }>Continue without auth</AuthButton>
+            <AuthButton type='dashed' onClick={ props.continueAsGuestCallback }>Continue without auth</AuthButton>
             <Link to='/about'>
                 Also you can read more about this app
             </Link>

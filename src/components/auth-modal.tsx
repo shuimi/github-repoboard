@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button } from 'antd';
-import useAuth from "../services/auth-service";
+import useAuth from "../services/auth-hook";
 import GithubLogo from './../images/github-logo.svg';
 import CallToAuth from "./call-to-auth";
 
