@@ -1,8 +1,10 @@
-import React, { memo} from 'react';
+import React, { memo } from 'react';
 import { Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import GithubLogo from '../images/github-logo.svg';
+import useAuth from "../hooks/auth-hook";
+import { Paths } from "../paths";
 
 
 const Wrapper = styled.div`
@@ -27,7 +29,7 @@ const Logo = styled.img({
 const CompositeLogo = styled.div({
     fontSize: 'max(2vw, 20px)',
     textAlign: 'center',
-    paddingTop: '2rem',
+    paddingTop: '1rem',
 });
 
 export const AuthButton = styled(Button)({
@@ -42,7 +44,17 @@ const CentredText = styled.span<{ fontSize: number }>((props) => ({
 }));
 
 
-const CallToAuth = memo((props: { signInCallback: any, continueAsGuestCallback: any }) => {
+const CallToAuth = memo((props: { closeModelCallback?: any }) => {
+
+    const { signInWithGithub } = useAuth();
+
+    const navigate = useNavigate();
+
+    const onContinueAsGuest = () => {
+        props.closeModelCallback && props.closeModelCallback();
+        navigate(Paths.REPOSITORIES_BOARD);
+    }
+
     return (
         <Wrapper>
             <CompositeLogo>
@@ -54,12 +66,12 @@ const CallToAuth = memo((props: { signInCallback: any, continueAsGuestCallback: 
             <CentredText fontSize={ 1.15 }>
                 Log into github account to interact your repositories:
             </CentredText>
-            <AuthButton type='primary' onClick={ props.signInCallback }>Sign in via Github</AuthButton>
+            <AuthButton type='primary' onClick={ signInWithGithub }>Sign in via Github</AuthButton>
             <CentredText fontSize={ 1 }>
                 Or try browsing public repositories without authorization:
             </CentredText>
-            <AuthButton type='dashed' onClick={ props.continueAsGuestCallback }>Continue without auth</AuthButton>
-            <Link to='/about'>
+            <AuthButton type='dashed' onClick={ onContinueAsGuest }>Continue without auth</AuthButton>
+            <Link onClick={ props.closeModelCallback } to='/about'>
                 Also you can read more about this app
             </Link>
         </Wrapper>

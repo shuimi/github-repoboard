@@ -1,5 +1,5 @@
 export const Paths = {
-    ABOUT: '/about',
-    MY_REPOSITORIES: '/me',
-    REPOSITORIES_BOARD: '/repoboard',
+    ABOUT: '/github-repoboard/about',
+    MY_REPOSITORIES: '/github-repoboard/me',
+    REPOSITORIES_BOARD: '/github-repoboard/repoboard',
 };

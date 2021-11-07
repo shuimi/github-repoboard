@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { octokit } from "./octokit";
+import { usePagination } from "./pagination-hook";
 
 
 const prepareQuery = (query: string) => query
@@ -17,18 +18,10 @@ export interface SearchFilters {
 
 export const useReposSearch = (defaultPageSize: number) => {
 
+    const { pagination, setPagination } = usePagination(defaultPageSize);
+
     const [ fetching, setFetching ] = useState<boolean>(false);
-
-    const [ pagination, setPagination ] = useState<{
-        page: number,
-        pageSize: number
-    }>({
-        page: 1,
-        pageSize: defaultPageSize
-    });
-
     const [ fetchingError, setFetchingError ] = useState<string>('');
-
 
     const [ searchQuery, setSearchQuery ] = useState<string>('');
     const [ searchTopics, setSearchTopics ] = useState<string>('');

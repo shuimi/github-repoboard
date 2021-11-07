@@ -1,13 +1,13 @@
 import React, { ReactElement } from 'react';
 import { Alert, Divider, Empty, Input, Pagination, Row, Select, Spin } from 'antd';
 import RepositoryCard from './repository-card';
-import { useReposSearch } from '../services/repos-search-hook';
+import { useReposSearch } from '../hooks/repos-search-hook';
 import Section from './section';
 import styled from "styled-components";
+import { useMediaQuery } from "../hooks/media-query-hook";
 
 
 const TopicsSelectStyle = { width: '100%', marginTop: '0.2em', marginBottom: '0.5em' };
-const SelectStyle = { width: '9em', margin: '0 2em' };
 
 const RepoCardsBox = styled(Row)({
     justifyContent: 'center',
@@ -74,6 +74,9 @@ const RepositoriesBoard = () => {
 
     const { Option } = Select;
 
+    const isMobileDevice = useMediaQuery('(min-width: 280px)');
+    const SelectStyle = { width: '9em', margin: `0 ${ isMobileDevice && 2 || 0.5 }em` };
+
 
     return (
         <Section>
@@ -83,13 +86,6 @@ const RepositoriesBoard = () => {
                     onChange={ onTopicSelect } onClear={ onTopicsClear }
             />
             <FiltersWrapper>
-                <FilterSelectWrapper title={ 'Order by' }>
-                    <Select style={ SelectStyle } bordered={ false } defaultValue={ searchFilters.order }
-                            onSelect={ onOrderSelect }>
-                        <Option value='asc'>Ascending</Option>
-                        <Option value='desc'>Descending</Option>
-                    </Select>
-                </FilterSelectWrapper>
                 <FilterSelectWrapper title={ 'Sort by' }>
                     <Select style={ SelectStyle } bordered={ false } defaultValue={ searchFilters.sort ?? '' }
                             onSelect={ onSortSelect }>
@@ -100,7 +96,16 @@ const RepositoriesBoard = () => {
                         <Option value='updated'>Update rate</Option>
                     </Select>
                 </FilterSelectWrapper>
-
+                {
+                    searchFilters.sort &&
+                    <FilterSelectWrapper title={ 'Order by' }>
+                        <Select style={ SelectStyle } bordered={ false } defaultValue={ searchFilters.order }
+                                onSelect={ onOrderSelect }>
+                            <Option value='asc'>Ascending</Option>
+                            <Option value='desc'>Descending</Option>
+                        </Select>
+                    </FilterSelectWrapper>
+                }
             </FiltersWrapper>
             {
                 fetchingError

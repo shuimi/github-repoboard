@@ -1,36 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Button } from 'antd';
-import useAuth from "../services/auth-hook";
-import GithubLogo from './../images/github-logo.svg';
-import CallToAuth from "./call-to-auth";
+import { Modal } from 'antd';
+import CallToAuth from './call-to-auth';
+import useAuth from "../hooks/auth-hook";
 
 
-const AuthModal = (props: { show: boolean }) => {
+const AuthModal = () => {
 
-    const { checkUser, signInWithGithub } = useAuth();
+    const [ visible, setVisible ] = useState(false);
+    const { auth } = useAuth();
 
     useEffect(() => {
-        checkUser();
-        window.addEventListener('hashchange', () => {
-            checkUser();
-        });
-    }, []);
-
-    const [ visible, setVisible ] = useState(props.show);
+        setVisible(!auth.status);
+    }, [ auth.status ])
 
     const handleCancel = () => {
         setVisible(false);
     };
 
     return (
-        <Modal
-            visible={ visible }
-            onCancel={ handleCancel }
-            footer={ null }
-            centered
-        >
-            <CallToAuth continueAsGuestCallback={()=>{}}
-                        signInCallback={signInWithGithub}/>
+        <Modal visible={ visible } onCancel={ handleCancel } footer={ null } centered>
+            <CallToAuth closeModelCallback={ handleCancel }/>
         </Modal>
     );
 }
