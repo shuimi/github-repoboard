@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Skeleton, Card, Avatar } from 'antd';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 
 const CardStyle = { width: '22em', margin: '1em' };

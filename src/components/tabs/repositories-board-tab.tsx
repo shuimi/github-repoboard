@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react';
 import { Alert, Divider, Empty, Input, Row, Select, Spin } from 'antd';
-import RepositoryCard from './repository-card';
-import { useReposSearch } from '../hooks/repos-search-hook';
-import Section from './section';
-import styled from "styled-components";
-import { useMediaQuery } from "../hooks/media-query-hook";
-import { Pagination } from './pagination';
+import RepositoryCard from './../common/repository-card';
+import { useReposSearch } from '../../hooks/repos-search-hook';
+import Section from './helpers/section';
+import styled from 'styled-components';
+import { useMediaQuery } from '../../hooks/media-query-hook';
+import { Pagination } from '../common/pagination';
 
 
 const TopicsSelectStyle = { width: '100%', marginTop: '0.2em', marginBottom: '0.5em' };
@@ -58,7 +58,7 @@ const ContentBox = styled.div`
     margin-top: 12.5em;
 `;
 
-const RepositoriesBoard = () => {
+const RepositoriesBoardTab = () => {
 
     const defaultPageSize = 10;
     const pageSizeOptions = [ '5', `${ defaultPageSize }` ];
@@ -109,7 +109,7 @@ const RepositoriesBoard = () => {
         <Section>
             <SearchBox>
                 <Input.Search onSearch={ onSearchInput } size='large' placeholder='Search for repos'/>
-                <Select placeholder='Topics' mode="tags" size='middle' tokenSeparators={ [ ' ' ] }
+                <Select placeholder='Topics' mode='tags' size='middle' tokenSeparators={ [ ' ' ] }
                         style={ TopicsSelectStyle }
                         onChange={ onTopicSelect } onClear={ onTopicsClear }
                 />
@@ -191,4 +191,4 @@ const RepositoriesBoard = () => {
     );
 }
 
-export default RepositoriesBoard;
+export default RepositoriesBoardTab;

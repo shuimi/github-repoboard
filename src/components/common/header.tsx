@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { Button, Dropdown, Menu } from "antd";
-import { useMediaQuery } from "../hooks/media-query-hook";
-import { MenuOutlined } from "@ant-design/icons";
-import { Paths } from "../paths";
-import React, { memo } from "react";
-import GithubLogo from "../images/github-logo-white.svg";
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { Button, Dropdown, Menu } from 'antd';
+import { useMediaQuery } from '../../hooks/media-query-hook';
+import { MenuOutlined } from '@ant-design/icons';
+import { Paths } from '../../paths';
+import React, { memo } from 'react';
+import GithubLogo from '../../images/github-logo-white.svg';
 
 
 const StyledHeader = styled.header({

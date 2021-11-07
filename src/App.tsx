@@ -7,12 +7,12 @@ import {
     Routes
 } from 'react-router-dom';
 
-import RepositoriesBoard from './components/repositories-board';
-import MyRepositories from './components/my-repositories';
-import AuthModal from "./components/auth-modal";
-import About from "./components/about";
 import { Paths } from "./paths";
-import { NotFound } from "./components/not-found-error";
+import { NotFound } from "./components/tabs/not-found-tab";
+import AuthModal from "./components/common/auth-modal";
+import RepositoriesBoardTab from "./components/tabs/repositories-board-tab";
+import MyRepositoriesTab from "./components/tabs/my-repositories-tab";
+import AboutTab from "./components/tabs/about-tab";
 
 
 const App: FC = () => {
@@ -22,10 +22,10 @@ const App: FC = () => {
             <AuthModal/>
             <CommonLayout>
                 <Routes>
-                    <Route path={ '/github-repoboard' } element={ <RepositoriesBoard/> }/>
-                    <Route path={ Paths.ABOUT } element={ <About/> }/>
-                    <Route path={ Paths.MY_REPOSITORIES } element={ <MyRepositories/> }/>
-                    <Route path={ Paths.REPOSITORIES_BOARD } element={ <RepositoriesBoard/> }/>
+                    <Route path={ '/github-repoboard' } element={ <RepositoriesBoardTab/> }/>
+                    <Route path={ Paths.ABOUT } element={ <AboutTab/> }/>
+                    <Route path={ Paths.MY_REPOSITORIES } element={ <MyRepositoriesTab/> }/>
+                    <Route path={ Paths.REPOSITORIES_BOARD } element={ <RepositoriesBoardTab/> }/>
                     <Route path="*" element={ <NotFound/> }/>
                 </Routes>
             </CommonLayout>

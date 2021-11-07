@@ -1,8 +1,8 @@
-import React, { memo } from "react";
-import Section from "./section";
+import React, { memo } from 'react';
+import Section from './helpers/section';
 
 
-const About = memo(() => {
+const AboutTab = memo(() => {
     return (
         <Section>
             <h2>About this application:</h2>
@@ -44,4 +44,4 @@ const About = memo(() => {
     );
 });
 
-export default About;
+export default AboutTab;

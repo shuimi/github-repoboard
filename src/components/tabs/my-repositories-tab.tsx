@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Divider, Empty, Row, Spin, Statistic } from 'antd';
-import { octokit } from '../client/octokit';
-import RepositoryCard from './repository-card';
-import useAuth from '../hooks/auth-hook';
-import CallToAuth from './call-to-auth';
-import Section from './section';
-import styled from "styled-components";
-import { useMediaQuery } from "../hooks/media-query-hook";
-import { usePagination } from "../hooks/pagination-hook";
-import { Pagination } from "./pagination";
+import { octokit } from '../../client/octokit';
+import RepositoryCard from './../common/repository-card';
+import useAuth from '../../hooks/auth-hook';
+import CallToAuth from './../common/call-to-auth';
+import Section from './helpers/section';
+import styled from 'styled-components';
+import { useMediaQuery } from '../../hooks/media-query-hook';
+import { usePagination } from '../../hooks/pagination-hook';
+import { Pagination } from '../common/pagination';
 
 
 const funnyCatImageURL = `https://i.ytimg.com/vi/Zr-qM5Vrd0g/maxresdefault.jpg`;
@@ -44,7 +44,7 @@ const Repositories = styled(Row)`
 `;
 
 
-const MyRepositories = () => {
+const MyRepositoriesTab = () => {
 
     const { auth } = useAuth();
 
@@ -140,4 +140,4 @@ const MyRepositories = () => {
     );
 }
 
-export default MyRepositories;
+export default MyRepositoriesTab;
