@@ -18,7 +18,10 @@ const CommonLayout: FC = ({ children }) => {
 
     return (
         <>
-            <Header authStatus={ auth.status } signInCallback={ signInWithGithub } signOutCallback={ signOut }/>
+            <Header username={ auth.user?.username }
+                    authStatus={ auth.status }
+                    signInCallback={ signInWithGithub }
+                    signOutCallback={ signOut }/>
             <Content>
                 { children }
             </Content>

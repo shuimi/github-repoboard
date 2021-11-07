@@ -71,7 +71,7 @@ const CallToAuth = memo((props: { closeModelCallback?: any }) => {
                 Or try browsing public repositories without authorization:
             </CentredText>
             <AuthButton type='dashed' onClick={ onContinueAsGuest }>Continue without auth</AuthButton>
-            <Link onClick={ props.closeModelCallback } to='/about'>
+            <Link onClick={ props.closeModelCallback } to={ Paths.ABOUT }>
                 Also you can read more about this app
             </Link>
         </Wrapper>

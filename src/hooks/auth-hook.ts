@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootReducerModel, setAuth } from "../redux";
 import { AuthModel } from "../redux/models";
 import { message } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 
 const NotifySuccess = (content: string) => {

@@ -62,6 +62,13 @@ const Logo = styled.img({
     margin: '0.05em 1em',
 });
 
+const Username = styled.div`
+    float: right;
+    text-align: center;
+    margin: 0.8em 0.2em;
+    color: white;
+`;
+
 const MobileMoreButton = styled(Dropdown)`
     margin: 0.4em;
     color: white;
@@ -73,11 +80,12 @@ const MobileMoreButton = styled(Dropdown)`
 
 export const Header = memo((props: {
     authStatus: boolean,
+    username: string | undefined,
     signOutCallback: () => void,
     signInCallback: () => void
 }) => {
 
-    const isSmallDevice = useMediaQuery('(max-width: 500px)');
+    const isSmallDevice = useMediaQuery('(max-width: 520px)');
     const isExtraSmallDevice = useMediaQuery('(max-width: 340px)');
     const isMinimumSize = useMediaQuery('(max-width: 260px)');
 
@@ -154,6 +162,9 @@ export const Header = memo((props: {
                         </AuthButton>
                     )
                 )
+            }
+            {
+                props.authStatus && !isSmallDevice && <Username>@{ props.username }</Username>
             }
         </StyledHeader>
     );

@@ -3,8 +3,8 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { createLogger } from "redux-logger";
 import thunkMiddleware from "redux-thunk";
 
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+// import { persistStore, persistReducer } from 'redux-persist';
+// import storage from 'redux-persist/lib/storage';
 
 import { authReducer } from "./state/auth-state/auth-reducer";
 import { AuthModel } from "./models";
@@ -20,10 +20,10 @@ const rootReducer = combineReducers({
     auth: authReducer,
 });
 
-const persistConfig = {
-    key: 'root',
-    storage,
-}
+// const persistConfig = {
+//     key: 'root',
+//     storage,
+// }
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer);
 
