@@ -1,4 +1,4 @@
-import { supabase } from "./client";
+import { supabase } from "../client/client";
 import { useDispatch, useSelector } from "react-redux";
 import { RootReducerModel, setAuth } from "../redux";
 import { AuthModel } from "../redux/models";
@@ -63,7 +63,7 @@ const useAuth = () => {
             scopes: 'repo notifications',
             redirectTo: `${ process.env.CLIENT_URL }/github-repoboard/me`
         })
-            .catch(error => {
+            .catch(() => {
                 resetAuth();
             })
             .finally(() => {

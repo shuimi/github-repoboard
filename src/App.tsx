@@ -22,7 +22,7 @@ const App: FC = () => {
             <AuthModal/>
             <CommonLayout>
                 <Routes>
-                    <Route element={ <RepositoriesBoard/> }/>
+                    <Route path={ '/github-repoboard' } element={ <RepositoriesBoard/> }/>
                     <Route path={ Paths.ABOUT } element={ <About/> }/>
                     <Route path={ Paths.MY_REPOSITORIES } element={ <MyRepositories/> }/>
                     <Route path={ Paths.REPOSITORIES_BOARD } element={ <RepositoriesBoard/> }/>

@@ -19,7 +19,7 @@ const About = memo(() => {
                 marginBottom: '1em',
                 padding: '2em',
                 borderRadius: '0.4em',
-                width: '20vw',
+                maxWidth: '20rem',
                 background: '#eaeaea'
             } }>
                 "@supabase/supabase-js": "^1.25.2",<br/>
