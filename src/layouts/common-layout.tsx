@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import styled from "styled-components";
-import useAuth from "../hooks/auth-hook";
-import { Header } from "../components/header";
+import styled from 'styled-components';
+import useAuth from '../hooks/auth-hook';
+import { Header } from '../components/common/header';
 
 
 const Content = styled.div({

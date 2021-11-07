@@ -2,9 +2,9 @@ import React, { memo } from 'react';
 import { Button } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import GithubLogo from '../images/github-logo.svg';
-import useAuth from "../hooks/auth-hook";
-import { Paths } from "../paths";
+import GithubLogo from '../../images/github-logo.svg';
+import { Paths } from '../../paths';
+import useAuth from '../../hooks/auth-hook';
 
 
 const Wrapper = styled.div`

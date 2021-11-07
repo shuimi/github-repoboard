@@ -1,13 +1,15 @@
-import { supabase } from "./client";
+import { supabase } from "../client/client";
 import { useDispatch, useSelector } from "react-redux";
 import { RootReducerModel, setAuth } from "../redux";
 import { AuthModel } from "../redux/models";
 import { message } from "antd";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Paths } from "../paths";
 
 
 const NotifySuccess = (content: string) => {
-    message.success({ content: content, duration: 1.4 });
+    message.success({ content: content, duration: 1.4 }).then();
 }
 
 
@@ -38,7 +40,7 @@ const useAuth = () => {
     const auth = useSelector<RootReducerModel>(state => state.auth) as AuthModel;
 
     const resetAuth = () => dispatch(setAuth({ status: false, user: null }));
-
+    const navigate = useNavigate();
 
     const checkAuth = () => {
         const user = supabase.auth.user();
@@ -63,7 +65,7 @@ const useAuth = () => {
             scopes: 'repo notifications',
             redirectTo: `${ process.env.CLIENT_URL }/github-repoboard/me`
         })
-            .catch(error => {
+            .catch(() => {
                 resetAuth();
             })
             .finally(() => {
@@ -84,6 +86,10 @@ const useAuth = () => {
 
     useEffect(() => {
         checkAuth();
+        window.addEventListener('hashchange', () => {
+            checkAuth();
+            navigate(Paths.MY_REPOSITORIES);
+        });
     }, [ auth.status ]);
 
     return {

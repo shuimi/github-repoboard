@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'antd';
 import CallToAuth from './call-to-auth';
-import useAuth from "../hooks/auth-hook";
+import useAuth from '../../hooks/auth-hook';
 
 
 const AuthModal = () => {

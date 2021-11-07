@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { octokit } from "./octokit";
-import { usePagination } from "./pagination-hook";
+import { useEffect, useState } from 'react';
+import { octokit } from '../client/octokit';
+import { usePagination } from './pagination-hook';
 
 
 const prepareQuery = (query: string) => query

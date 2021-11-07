@@ -1,6 +1,6 @@
-import Section from "./section";
-import { memo } from "react";
-import { useLocation } from "react-router-dom";
+import Section from './helpers/section';
+import React, { memo } from 'react';
+import { useLocation } from 'react-router-dom';
 
 
 export const NotFound = memo(() => {
