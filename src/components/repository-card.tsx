@@ -1,30 +1,51 @@
-import React, { FC } from 'react';
-import { Skeleton, Switch, Card, Avatar } from 'antd';
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import React, { memo } from 'react';
+import { Skeleton, Card, Avatar } from 'antd';
+import styled from "styled-components";
 
 
-const RepositoryCard = (props: { name: string, loading: boolean }) => {
+const CardStyle = { width: '22em', margin: '1em' };
+
+const { Meta } = Card;
+
+const PropertyWrapper = styled.div({ margin: '1rem 0 0 3rem' });
+
+
+const RepositoryCard = memo((props: {
+    name: string,
+    description: string,
+    language: string,
+    license: string,
+    licenseURL: string,
+    imageURL: string
+}) => {
+
     return (
-        <Card
-            style={ { width: 300, marginTop: 16 } }
-            actions={ [
-                <SettingOutlined key="setting"/>,
-                <EditOutlined key="edit"/>,
-                <EllipsisOutlined key="ellipsis"/>,
-            ] }
-        >
-            <Skeleton loading={ props.loading } avatar active>
+        <Card style={ CardStyle }>
+            <Skeleton loading={ false } avatar active>
                 <Meta
-                    avatar={ <Avatar src="https://joeschmoe.io/api/v1/random"/> }
+                    avatar={ <Avatar src={ props.imageURL }/> }
                     title={ props.name }
-                    description="This is the description"
+                    description={ props.description ?? 'Empty description' }
                 />
+                {
+                    props.language &&
+                    <PropertyWrapper>
+                        Language:&#8195;
+                        { props.language }
+                    </PropertyWrapper>
+                }
+                {
+                    props.license &&
+                    <PropertyWrapper>
+                        License:&#8195;
+                        <a href={ props.licenseURL }>
+                            { props.license }
+                        </a>
+                    </PropertyWrapper>
+                }
             </Skeleton>
         </Card>
     );
-}
+});
 
 export default RepositoryCard;
-
-
-const { Meta } = Card;
