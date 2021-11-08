@@ -14,7 +14,6 @@ const Wrapper = styled.div`
     min-height: min(50vw, 30vh);
     align-items: center;
     padding-bottom: 2rem;
-    max-height: 70vh;
 `;
 
 const Text = styled.span({
@@ -32,11 +31,14 @@ const CompositeLogo = styled.div({
     paddingTop: '1rem',
 });
 
-export const AuthButton = styled(Button)({
-    marginTop: '1em',
-    marginBottom: '1em',
-    width: '14rem',
-});
+export const AuthButton = styled(Button)`
+    margin-top: 1em;
+    margin-bottom: 1em;
+    width: 14rem;
+    @media (max-width: 520px) {
+        width: 11rem;
+    }
+`;
 
 const CentredText = styled.span<{ fontSize: number }>((props) => ({
     fontSize: `${ props.fontSize }em`,

@@ -48,36 +48,14 @@ const MyRepositoriesTab = () => {
 
     const { auth } = useAuth();
 
-    const defaultPageSize = 10;
-    const pageSizeOptions = [ '5', `${ defaultPageSize }` ];
-
-    const { pagination, setPagination } = usePagination(defaultPageSize);
-
-    const onPageChange = (page: number, pageSize?: number) => {
-        setPagination({ page: page, pageSize: pageSize ?? defaultPageSize });
-    }
-
     const [ repos, setRepos ] = useState<Array<any>>([]);
     const [ fetching, setFetching ] = useState(false);
-    const [ totalCount, setTotalCount ] = useState<number>(0);
 
     useEffect(() => {
         setFetching(true);
 
-        auth.user?.username && octokit.rest.users.getByUsername({
-            username: auth.user?.username,
-        })
-            .then((user) => {
-                setTotalCount(user.data.public_repos as number);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-
         auth.user?.username && octokit.rest.repos.listForUser({
             username: auth.user?.username,
-            per_page: pagination.pageSize,
-            page: pagination.page
         })
             .then(repos => {
                 setRepos(repos.data);
@@ -87,10 +65,9 @@ const MyRepositoriesTab = () => {
             })
             .finally(() => {
                 setFetching(false);
-                console.log(totalCount)
             });
 
-    }, [ auth, pagination ]);
+    }, [ auth ]);
 
 
     return (
@@ -122,16 +99,6 @@ const MyRepositoriesTab = () => {
                                     }
                                 </Repositories>
                             )
-                        }
-                        {
-                            !fetching && repos && <Pagination
-                                total={ totalCount }
-                                pageSizeOptions={ pageSizeOptions }
-                                onChange={ onPageChange }
-                                responsive={ false }
-                                showSizeChanger
-                                showLessItems
-                            />
                         }
                     </>
                 ) || <CallToAuth/>
