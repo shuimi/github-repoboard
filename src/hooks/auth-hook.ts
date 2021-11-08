@@ -63,7 +63,7 @@ const useAuth = () => {
             provider: 'github'
         }, {
             scopes: 'repo notifications',
-            redirectTo: `${ process.env.CLIENT_URL }/github-repoboard/me`
+            redirectTo: `${ process.env.REACT_APP_CLIENT_URL }/github-repoboard/me`
         })
             .catch(() => {
                 resetAuth();
