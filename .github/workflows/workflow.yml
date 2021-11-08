@@ -1,7 +1,4 @@
 name: Github Pages Deploy
-
-env:
-  CI: false
   
 on:
   push:
@@ -21,6 +18,11 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Install dependencies and build
+        env:
+          CI: false
+          REACT_APP_SUPABASE_URL: ${{ secrets.REACT_APP_SUPABASE_URL }}
+          REACT_APP_SUPABASE_ANON_KEY: ${{ secrets.REACT_APP_SUPABASE_ANON_KEY }}
+          REACT_APP_CLIENT_URL: ${{secrets.CLIENT_URL}}
         run: npm install && npm run build
 
       - name: Deploy
